@@ -1,0 +1,20 @@
+# Ignore everything
+*
+
+# But not these ...
+!.gitignore
+!.gitconfig
+!.aliases
+!.zshrc
+
+# !*/
+# */
+!.vscode
+!.vscode/**
+
+!.windows_terminal
+!.windows_terminal/**
+
+!.config
+!.config/lazygit
+!.config/lazygit/config.yml

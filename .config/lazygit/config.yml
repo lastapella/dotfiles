@@ -1,0 +1,10 @@
+gui:
+  theme:
+    lightTheme: false # For terminals with a light background
+    selectedLineBgColor:
+      - reverse
+      - underline
+    selectedRangeBgColor:
+      - blue
+os:
+  openCommand: 'code -rg {{filename}}'
