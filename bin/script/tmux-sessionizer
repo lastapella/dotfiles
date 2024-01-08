@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
+source ~/.zprofile
 
 if [[ $# -eq 1 ]]; then
 
     selected=$1
 else
-    selected=$(find ~/ ~/workspace ~/.config ~/.dotfiles ~/.dotfiles/bin -mindepth 1 -maxdepth 1 -type d | fzf)
+    selected=$(find ${TMS_DIRS} -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
 
 if [[ -z $selected ]]; then

@@ -103,9 +103,9 @@ export EDITOR='nvim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-source ./.aliases
+source $HOME/.aliases
 
-export PATH="$PATH:/usr/local/go/bin:/home/thomas/.dotfiles/bin/script"
+export PATH="$PATH:/usr/local/go/bin:$HOME/.dotfiles/bin/script"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
