@@ -6,6 +6,7 @@
 !.gitconfig
 !.aliases
 !.zshrc
+!.zprofile
 
 # !*/
 # */
@@ -18,3 +19,6 @@
 !.config
 !.config/lazygit
 !.config/lazygit/config.yml
+
+!bin
+!bin/**
