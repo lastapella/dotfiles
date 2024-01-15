@@ -2,10 +2,12 @@
 source ~/.zprofile
 
 if [[ $# -eq 1 ]]; then
-
     selected=$1
 else
-    selected=$(find ${TMS_DIRS[@]} -mindepth 1 -maxdepth 1 -type d | fzf)
+    search=$(find ${TMS_DIRS[@]} -mindepth 1 -maxdepth 1 -type d )
+    search=$(echo "$search ${TMS_ADDITIONAL_DIRS[@]}")
+    echo $search | tr ' ' '\n'
+    selected=$(echo $search | tr ' ' '\n' | fzf)
 fi
 
 if [[ -z $selected ]]; then
