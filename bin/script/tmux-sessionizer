@@ -4,17 +4,18 @@ source ~/.zprofile
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    search=$(find ${TMS_DIRS[@]} -mindepth 1 -maxdepth 1 -type d )
+    search=$(find ${TMS_DIRS[@]} -mindepth 1 -maxdepth 1 -type d -not -name hooks -not -name info -not -name refs -not -name objects -not -name worktrees -not -name logs)
     search=$(echo "$search ${TMS_ADDITIONAL_DIRS[@]}")
-    echo $search | tr ' ' '\n'
     selected=$(echo $search | tr ' ' '\n' | fzf)
 fi
-
 if [[ -z $selected ]]; then
     exit 0
 fi
 
-selected_name=$(basename "$selected" | tr . _)
+
+selected_dir_name=$(dirname "$selected")
+selected_basename=$(basename "$selected")
+selected_name=$(echo "${selected_dir_name##*/}_$selected_basename"| tr . _)
 tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
