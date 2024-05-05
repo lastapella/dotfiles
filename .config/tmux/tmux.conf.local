@@ -356,7 +356,7 @@ tmux_conf_copy_to_os_clipboard=false
 #set -g history-limit 10000
 
 # start with mouse mode enabled
-#set -g mouse on
+set -g mouse on
 
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
@@ -366,7 +366,7 @@ tmux_conf_copy_to_os_clipboard=false
 # replace C-b by C-a instead of using both prefixes
 # set -gu prefix2
 # unbind C-a
-# unbind C-b
+unbind C-b
 # set -g prefix C-a
 # bind C-a send-prefix
 
@@ -418,15 +418,37 @@ set -g @plugin 'tmux-plugins/tmux-resurrect'
 #set -g @plugin 'tmux-plugins/tmux-continuum'
 #set -g @continuum-restore 'on'
 
+set -g @plugin 'sainnhe/tmux-fzf'
+
+# set -g @plugin 'omerxx/tmux-sessionx'
+# set -g @sessionx-zoxide-mode 'on'
+# set -g @sessionx-bind 'o'
+
+unbind t
+bind-key "t" run-shell "sesh connect $(
+	sesh list -tz | fzf-tmux -p 65%,65% \
+		--no-sort --border-label ' sesh ' --prompt '⚡  ' \
+		--header '  ^a all ^t tmux ^x zoxide ^f find' \
+		--bind 'tab:down,btab:up' \
+		--bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list)' \
+		--bind 'ctrl-t:change-prompt(🪟  )+reload(sesh list -t)' \
+		--bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z)' \
+		--bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)'\
+		--preview='tmux capture-pane -ep -t {}'
+)"
+
 set -g @plugin 'catppuccin/tmux'
 set -g @catppuccin_status_modules_right "directory date_time application session"
 set -g @catppuccin_status_modules_left ""
 set -g @catppuccin_date_time_text "%H:%M"
- 
+
+
 bind -n M-H select-pane -L  # move left
 bind -n M-J select-pane -D  # move down
 bind -n M-K select-pane -U  # move up
 bind -n M-L select-pane -R  # move right
+
+set -sg repeat-time 400                   # increase repeat timeout
 
 # -- custom variables ----------------------------------------------------------
 

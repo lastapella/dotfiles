@@ -31,24 +31,24 @@ grep_string=$2
 
 git log $branch --reverse --since="2 year ago" --format=format:"%H [%an\] %s (%ai)" -E -i --grep $grep_string | fzf -m | tee cherry-picked-commits.txt | cut -d' ' -f1 | tr '\n' ' ' | sed 's/ $//' | xargs git cherry-pick -m1
 cherry_pick_success=$?
-while [[ $cherry_pick_success -ne 0 ]]; do
-  git mergetool &
-  while [ -n "$(git diff --name-only --diff-filter=U)" ];do
-    sleep 5
-  done
-  read -p "All conflict resolved, [c]ontinue(default), [s]kip or [a]bort?" continue
-
-  if [[ $continue == "a" ]]; then
-    echo "Abort"
-    git cherry-pick --abort
-    cherry_pick_success=$?
-  elif [[ $continue == "s" ]]; then
-    echo "Skip"
-    git cherry-pick --skip
-    cherry_pick_success=$?
-  else
-    echo "Continue"
-    git cherry-pick --continue --no-edit
-    cherry_pick_success=$?
-  fi
-done
+# while [[ $cherry_pick_success -ne 0 ]]; do
+#   git mergetool 
+#   while [ -n "$(git diff --name-only --diff-filter=U)" ];do
+#     sleep 5
+#   done
+#   read -p "All conflict resolved, [c]ontinue(default), [s]kip or [a]bort?" continue
+#
+#   if [[ $continue == "a" ]]; then
+#     echo "Abort"
+#     git cherry-pick --abort
+#     cherry_pick_success=$?
+#   elif [[ $continue == "s" ]]; then
+#     echo "Skip"
+#     git cherry-pick --skip
+#     cherry_pick_success=$?
+#   else
+#     echo "Continue"
+#     git cherry-pick --continue --no-edit
+#     cherry_pick_success=$?
+#   fi
+# done
