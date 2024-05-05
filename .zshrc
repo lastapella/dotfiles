@@ -28,6 +28,11 @@ bindkey -M menuselect  '^[[C'  .forward-char  '^[OC'  .forward-char
 bindkey '^P' history-substring-search-up
 bindkey '^N' history-substring-search-down
 
+# Edit the current command line in $EDITOR
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '\C-x\C-e' edit-command-line
+
 source ~/.zsh.d/completions/docker.zsh
 source ~/.zsh.d/completions/az
 source ~/.zsh.d/completions/git.zsh
