@@ -123,5 +123,9 @@ source $HOME/.aliases
 
 export FZF_DEFAULT_COMMAND='fd --hidden --follow -E .git -E .DS_Store'
 # Shell integrations
-eval "$(fzf --zsh)"
+# eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+
+. "$HOME/.atuin/bin/env"
+
+eval "$(atuin init zsh)"

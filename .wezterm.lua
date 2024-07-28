@@ -159,9 +159,14 @@ local function open_in_nvim(name, line, window, pane)
 	local vimcwd = get_nvim_server_id().vimcwd
 	local full_path
 	if name then
+		print(string.sub(name, 1, 1))
+		print(string.sub(name, 1, 1) == "/")
 		if string.sub(name, 1, 1) ~= "/" then
 			full_path = vimcwd .. "/" .. name
+		else
+			full_path = name
 		end
+
 		print(full_path)
 		-- print(server_id)
 		-- print(tostring(windowId))
@@ -224,6 +229,10 @@ config.hyperlink_rules = {
 	-- probably filenames
 	{
 		regex = "[/.A-Za-z0-9_-]+\\.[A-Za-z0-9]+(:\\d+)*(?=\\s*|$)",
+		format = "$EDITOR:$0",
+	},
+	{
+		regex = "\\.[A-Za-z0-9_-]+[A-Za-z0-9]+(:\\d+)*(?=\\s*|$)",
 		format = "$EDITOR:$0",
 	},
 }
